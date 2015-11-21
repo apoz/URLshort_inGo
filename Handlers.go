@@ -12,9 +12,15 @@ func Index(w http.ResponseWriter, r *http.Request) {
 }
 
 func RedirectLink(w http.ResponseWriter, r *http.Request) {
-    var longURL string = StorageLookup(strings.Trim(r.URL.Path,"/"))
-    w.Header().Set("Location", longURL)
-    w.WriteHeader(301)
+    longURL := StorageLookup(strings.Trim(r.URL.Path,"/"))
+    if longURL == ""{
+        http.Error(w, "URL, not found, buddie :S", http.StatusNotFound)
+        //w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+        //w.WriteHeader()
+    } else {
+        w.Header().Set("Location", longURL)
+        w.WriteHeader(301)    
+    }
 }
 
 func LinkStats(w http.ResponseWriter, r *http.Request) {
