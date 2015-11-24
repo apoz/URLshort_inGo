@@ -8,10 +8,14 @@ import (
 var inMemoryStorage map[string]string
 
 func StorageLookup(shortID string) string {
-    shortURL:=inMemoryStorage[shortID]
-    return shortURL
+    longURL:=inMemoryStorage[shortID]
+    return longURL
 }
 
+func StorageSave(shortID string, longURL string) {
+    inMemoryStorage[shortID]=longURL
+    return
+}
 
 func StorageInitialValues() {
     inMemoryStorage=make(map[string]string)

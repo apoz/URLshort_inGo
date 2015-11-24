@@ -29,6 +29,7 @@ func LinkStats(w http.ResponseWriter, r *http.Request) {
 
 func NewLink(w http.ResponseWriter, r *http.Request) {
     log.Println("New link required")
+    var shortID string
     decoder := json.NewDecoder(r.Body)
     var myRequest shortURL_struct
     err := decoder.Decode(&myRequest)
@@ -37,6 +38,9 @@ func NewLink(w http.ResponseWriter, r *http.Request) {
         http.Error(w, "UPS, something went wrong! :S", http.StatusInternalServerError)
     } else {
         fmt.Fprintln(w,"TESTE->"+myRequest.Longurl+"<-")
+        shortID=generateShortID()
+        fmt.Fprintln(w,"TESTE2->"+shortID+"<-")
+        StorageSave(shortID,myRequest.Longurl)
     }
 }
 
