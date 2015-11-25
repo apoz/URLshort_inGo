@@ -37,10 +37,18 @@ func NewLink(w http.ResponseWriter, r *http.Request) {
         log.Println(err)
         http.Error(w, "UPS, something went wrong! :S", http.StatusInternalServerError)
     } else {
-        fmt.Fprintln(w,"TESTE->"+myRequest.Longurl+"<-")
         shortID=generateShortID()
-        fmt.Fprintln(w,"TESTE2->"+shortID+"<-")
         StorageSave(shortID,myRequest.Longurl)
+        
+        mynewURL :=newURL_struct{shortID,myRequest.Longurl}
+        js, err := json.Marshal(mynewURL)
+        if err != nil {
+            http.Error(w, err.Error(), http.StatusInternalServerError)
+            return
+        }
+        w.Header().Set("Content-Type", "application/json")
+        w.Write(js)
+        
     }
 }
 
