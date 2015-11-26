@@ -11,7 +11,7 @@ curl -X POST -d "{ \"longURL\": \"http://andres-pozo.com/asdfghjkl\"}" http://lo
 
 # Starts to look better
 
-
+```
 pozo@POZOBOE /c/Program Files/Console2
 $ curl -v -X POST -d "{ \"longurl\": \"http://this-is-my-long-url.com/asdfghjkl
 \" }" http://localhost:8080/new
@@ -61,7 +61,7 @@ $ curl -v -X GET http://localhost:8080/bRche
 < Content-Type: text/plain; charset=utf-8
 <
 * Connection #0 to host localhost left intact
-
+```
 
 
 # Ref links
