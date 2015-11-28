@@ -5,10 +5,6 @@ URL shortener exercise written in Go
 The goal of this repo is me to practice http development and play a bit with go
 
 
-# To test the POST with the CURL
-curl -X POST -d "{ \"longURL\": \"http://andres-pozo.com/asdfghjkl\"}" http://localhost:8080/new
-
-
 # API for the URLShortener (and examples)
 
 ## How to create a new shortURL
@@ -40,13 +36,14 @@ pozo@POZOBOE$curl -v -X POST -d "{ \"longurl\": \"http://this-is-my-long-url.com
 <
 {"ShortID":"bRche","LongURL":"http://this-is-my-long-url.com/asdfghjkl"}* Connec
 tion #0 to host localhost left intact
-´´´
+```
 
 The JSON response of the server will contain the path of the short URL in a param called ShortID.
 
 ## When visting a shortURL
 When visiting a short URL, the server sends a 301 HTTP response with the appropriate Location header containing the longURL.
-´´´´
+
+```
 pozo@POZOBOE
 $ curl -v -X GET http://localhost:8080/bRche
 * Adding handle: conn: 0x6b2ef0
@@ -74,7 +71,7 @@ $ curl -v -X GET http://localhost:8080/bRche
 
 ## Statistics of visits for a shortURL
 The server keeps the statistics for the number of times each link is visited. The stats can be queries including a '+' sign at the end of the short URL.
-´´´´
+```
 pozo@POZOBOE $ curl -v -X GET http://localhost:8080/bRche+
 * Adding handle: conn: 0x6b2ef0
 * Adding handle: send: 0
