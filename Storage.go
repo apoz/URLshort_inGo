@@ -17,9 +17,6 @@ func StorageSave(shortID string, longURL string) {
     return
 }
 
-func StorageInitialValues() {
+func StorageInitialization() {
     inMemoryStorage=make(map[string]string)
-    inMemoryStorage["1234"]="http://google.es"
-    inMemoryStorage["asdf"]="http://ddg.com"
-    inMemoryStorage["qwert"]="http://bing.com"
 }

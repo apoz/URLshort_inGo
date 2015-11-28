@@ -2,6 +2,7 @@ package main
 
 import (
     "math/rand"
+    "time"
 )
 
 var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
@@ -24,4 +25,10 @@ func randString(n int) string {
         b[i] = letters[rand.Intn(len(letters))]
     }
     return string(b)
+}
+
+func Initializations(){
+    StorageInitialization()
+    StatInitialization()
+    rand.Seed( time.Now().UTC().UnixNano())
 }

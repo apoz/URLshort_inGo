@@ -6,7 +6,6 @@ import (
     "strings"
     "encoding/json"
     "log"
-//    "io/ioutil"
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {
@@ -18,13 +17,24 @@ func RedirectLink(w http.ResponseWriter, r *http.Request) {
     if longURL == ""{
         http.Error(w, "URL, not found! :S", http.StatusNotFound)
     } else {
+        StatIncrease(strings.Trim(r.URL.Path,"/"))
         w.Header().Set("Location", longURL)
         w.WriteHeader(301)    
     }
 }
 
 func LinkStats(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintln(w, "Welcome to LinkStats2!")
+    shortURL:=strings.Trim(strings.TrimSuffix(r.URL.Path,"+"),"/")
+    numberOfVisits:=StatLookup(shortURL)
+    log.Println("Stats for " + shortURL+" required")
+    myURLstats := URLstats_struct{shortURL,numberOfVisits}
+    js, err := json.Marshal(myURLstats)
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
+    w.Header().Set("Content-Type", "application/json")
+    w.Write(js)
 }
 
 func NewLink(w http.ResponseWriter, r *http.Request) {
@@ -52,8 +62,3 @@ func NewLink(w http.ResponseWriter, r *http.Request) {
     }
 }
 
-func RedirectLink2(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintln(w, "Welcome %s!",r.URL.Path)
-    // w.Header().Set("Location", "http://google.es")
-    // w.WriteHeader(301)
-}

@@ -8,3 +8,8 @@ type newURL_struct struct {
     ShortID string
     LongURL string
 }
+
+type URLstats_struct struct {
+    ShortID string
+    NumberOfVisits int
+}
